@@ -1,3 +1,6 @@
+from bio.constantes import DNA_PARA_AMINOACIDO
+from bio.constantes import DNA_STOP_CODONS
+
 class Sequencia:
 
     def __init__(self, sequencia):
@@ -20,3 +23,4 @@ class Sequencia:
 
     def __getitem__(self, index):
         return self.sequencia.__getitem__(index)
+        
