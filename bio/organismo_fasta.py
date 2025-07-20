@@ -11,3 +11,6 @@ class OrganismoFasta:
         
     def calcular_percentual(self, bases):
         return self.sequencia.calcular_percentual(bases)
+
+    def traduzir_proteina(self):
+        return self.sequencia.traduzir()
