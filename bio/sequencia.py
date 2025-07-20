@@ -3,6 +3,8 @@ from bio.constantes import DNA_STOP_CODONS
 
 class Sequencia:
 
+    class Sequencia:
+
     def __init__(self, sequencia):
         self.sequencia = sequencia.upper()
 
@@ -32,10 +34,3 @@ class Sequencia:
             bases = [bases]
         count = sum(self.sequencia.count(base.upper()) for base in bases)
         return (count / total) * 100
-
-    def traduzir(self):
-        proteina = ""
-        for i in range(0, len(self.sequencia) - 2, 3):
-            codon = self.sequencia[i:i+3]
-            proteina += self.CODON_TABLE.get(codon, 'X')
-        return proteina
