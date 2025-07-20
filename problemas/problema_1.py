@@ -9,7 +9,7 @@ Dica: Use sua classe Sequencia e sua função .calcular_percentual(bases)
 from bio.ler_fasta import ler_fasta
 
 def main():
-    sequencias = ler_fasta("exemplo.fasta")
+    sequencias = ler_fasta("./arquivos/Flaviviridae-genomes.fasta")
 
     for org in sequencias:
         a = org.calcular_percentual("A")
