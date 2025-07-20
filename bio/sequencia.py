@@ -10,7 +10,7 @@ class Sequencia:
         return f'Sequencia("{self.sequencia}")'
 
     def __iter__(self):
-        return self.sequencia
+        return iter(self.sequencia)
 
     def __str__(self):
         return self.sequencia
@@ -22,18 +22,20 @@ class Sequencia:
         return str(self) == str(outra_sequencia)
 
     def __getitem__(self, index):
-       return self.sequencia[index]
+        return self.sequencia[index]
 
-  def calcular_percentual(self, bases):
+    def calcular_percentual(self, bases):
         total = len(self.sequencia)
-
         if total == 0:
             return 0.0
-        
         if isinstance(bases, str):
             bases = [bases]
-        
         count = sum(self.sequencia.count(base.upper()) for base in bases)
-        # Calcula e retorna o percentual.
         return (count / total) * 100
-      
+
+    def traduzir(self):
+        proteina = ""
+        for i in range(0, len(self.sequencia) - 2, 3):
+            codon = self.sequencia[i:i+3]
+            proteina += self.CODON_TABLE.get(codon, 'X')
+        return proteina
