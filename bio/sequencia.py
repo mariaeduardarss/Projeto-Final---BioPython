@@ -3,8 +3,6 @@ from bio.constantes import DNA_STOP_CODONS
 
 class Sequencia:
 
-    class Sequencia:
-
     def __init__(self, sequencia):
         self.sequencia = sequencia.upper()
 
