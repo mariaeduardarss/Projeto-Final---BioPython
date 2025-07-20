@@ -4,7 +4,7 @@ from bio.constantes import DNA_STOP_CODONS
 class Sequencia:
 
     def __init__(self, sequencia):
-        self.sequencia = sequencia
+        self.sequencia = sequencia.upper()
 
     def __repr__(self):
         return f'Sequencia("{self.sequencia}")'
@@ -22,5 +22,18 @@ class Sequencia:
         return str(self) == str(outra_sequencia)
 
     def __getitem__(self, index):
-        return self.sequencia.__getitem__(index)
+       return self.sequencia[index]
+
+  def calcular_percentual(self, bases):
+        total = len(self.sequencia)
+
+        if total == 0:
+            return 0.0
         
+        if isinstance(bases, str):
+            bases = [bases]
+        
+        count = sum(self.sequencia.count(base.upper()) for base in bases)
+        # Calcula e retorna o percentual.
+        return (count / total) * 100
+      
