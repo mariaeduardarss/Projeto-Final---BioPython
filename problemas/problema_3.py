@@ -1,3 +1,12 @@
+"""
+# Problema 3: Identificação de Mutação em Genomas Virais
+Contexto
+Você está colaborando com uma equipe de virologistas que está estudando mutações específicas em genomas de vírus da família Flaviviridae.
+Eles identificaram uma mutação de interesse que ocorre na posição 1000 das sequências, onde o nucleotídeo 'A' é substituído por 'G'.
+Seu trabalho é identificar se essa mutação está presente nas sequências fornecidas e gerar um relatório.
+Esta análise é crucial para entender a evolução dos vírus e suas possíveis implicações na virulência e resistência a tratamentos.
+"""
+
 from bio.ler_fasta import ler_fasta
 
 def verificar_mutacao(sequencia: str, posicao: int, original: str, mutado: str) -> bool:
