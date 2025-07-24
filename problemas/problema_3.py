@@ -7,32 +7,65 @@ Seu trabalho é identificar se essa mutação está presente nas sequências for
 Esta análise é crucial para entender a evolução dos vírus e suas possíveis implicações na virulência e resistência a tratamentos.
 """
 
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from bio.ler_fasta import ler_fasta
 
-def verificar_mutacao(sequencia: str, posicao: int, original: str, mutado: str) -> bool:
-    if len(sequencia) < posicao:
-        return False  # Sequência muito curta, posição não existe
+def identificar_mutacao(caminho_arquivo_fasta, posicao_mutacao, nucleotideo_esperado_origem, nucleotideo_mutado_alvo):
 
-    # Verifica se o nucleotídeo na posição (posicao - 1, pois índice começa em 0)
-    # é igual ao nucleotídeo mutado, comparando sem diferenciar maiúsculas/minúsculas
-    return sequencia[posicao - 1].upper() == mutado.upper()
+    print(f"--- Relatório de Mutação na Posição {posicao_mutacao} ({nucleotideo_esperado_origem} -> {nucleotideo_mutado_alvo}) ---")
+    print(f"Arquivo analisado: {caminho_arquivo_fasta}")
 
-def main():
-    caminho = 'exemplo.fasta'          # Caminho do arquivo FASTA a ser lido
-    posicao = 1000                     # Posição que será verificada na sequência
-    nucleotideo_original = 'A'         # Nucleotídeo esperado originalmente na posição
-    nucleotideo_mutado = 'G'           # Nucleotídeo que indica mutação na posição
+    organismos = ler_fasta(caminho_arquivo_fasta)
 
-    organismos = ler_fasta(caminho)
+    if not organismos:
+        print("Nenhuma sequência encontrada ou arquivo não existe ou está vazio.")
+        return
 
-    print("Relatório de Mutação (posição 1000 - A → G):\n")
-    # Para cada organismo, verifica se possui a mutação e imprime o resultado
+    relatorio = [] 
+
+    indice_mutacao = posicao_mutacao - 1
+
     for org in organismos:
-        seq = str(org.sequencia)       # Converte a sequência para string para facilitar a manipulação
-        if verificar_mutacao(seq, posicao, nucleotideo_original, nucleotideo_mutado):
-            print(f'>{org.id, org.nome}: Possui mutação')
-        else:
-            print(f'>{org.id, org.nome}: Não possui mutação')
+        seq_str = org.sequencia.sequencia 
+        mutacao_presente = False
+        detalhe_verificacao = ""
 
-if __name__ == '__main__':
-    main()
+        if len(seq_str) > indice_mutacao:
+            base_na_posicao_atual = seq_str[indice_mutacao].upper()
+
+            if base_na_posicao_atual == nucleotideo_mutado_alvo.upper():
+                mutacao_presente = True
+                detalhe_verificacao = f"Base na posição {posicao_mutacao}: '{base_na_posicao_atual}'. Mutaçāo ({nucleotideo_esperado_origem} -> {nucleotideo_mutado_alvo}) detectada."
+            else:
+                detalhe_verificacao = f"Base na posição {posicao_mutacao}: '{base_na_posicao_atual}'. Mutaçāo ({nucleotideo_esperado_origem} -> {nucleotideo_mutado_alvo}) NÃO detectada."
+        else:
+            detalhe_verificacao = f"Sequência muito curta (tamanho: {len(seq_str)}) para verificar a posição {posicao_mutacao}."
+
+        relatorio.append({
+            "id": org.id,
+            "nome": org.nome,
+            "mutacao_presente": mutacao_presente,
+            "detalhe": detalhe_verificacao
+        })
+
+    print("\n--- Sumário do Relatório ---")
+    for entry in relatorio:
+        status_texto = "POSSUI A MUTAÇÃO" if entry["mutacao_presente"] else "NÃO POSSUI A MUTAÇÃO"
+        print(f"\nID: {entry['id']}")
+        print(f"Nome: {entry['nome']}")
+        print(f"  Status: {status_texto}")
+        print(f"  Detalhe: {entry['detalhe']}")
+        print("-" * 40)
+
+if __name__ == "__main__":
+    fasta_file_path = os.path.join(os.path.dirname(__file__), '..', 'arquivos', 'Flaviviridae-genomes.fasta')
+
+    posicao_alvo = 1000
+    nucleotideo_origem_esperado = 'A'
+    nucleotideo_mutado_encontrado = 'G'
+
+    identificar_mutacao(fasta_file_path, posicao_alvo, nucleotideo_origem_esperado, nucleotideo_mutado_encontrado)
