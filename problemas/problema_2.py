@@ -1,3 +1,15 @@
+"""
+# Problema 2: Tradução de Sequências de Nucleotídeos para Sequências de Proteínas
+Objetivo: Traduzir sequências de nucleotídeos para sequências de proteínas.
+
+Tarefa: Escreva um script em Python para:
+
+Fazer o parse do arquivo multiFASTA.
+Traduzir cada sequência de nucleotídeos para sua sequência de proteína correspondente.
+Imprimir as sequências de proteínas.
+Dica: Use sua classe Sequencia e sua função de traduzir
+"""
+
 from bio.ler_fasta import ler_fasta
 from bio.sequencia import Sequencia
 
