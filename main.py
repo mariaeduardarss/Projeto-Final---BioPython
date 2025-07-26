@@ -83,9 +83,4 @@ def main_menu():
             print("Opção inválida. Por favor, escolha um número entre 0 e 4.")
 
 if __name__ == "__main__":
-    # Escolha como você quer que seu main.py funcione:
-    # Opção A: Rodar todos os problemas automaticamente ao executar o main.py
-    # run_all_problems()
-
-    # Opção B: Apresentar um menu interativo para o usuário
     main_menu()
