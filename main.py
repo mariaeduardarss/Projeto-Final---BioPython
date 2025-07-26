@@ -1,17 +1,25 @@
 import sys
 import os
 
-from problemas.problema_1 import problema_1
-from problemas.problema_2 import problema_2
-from problemas.problema_3 import problema_3
+# Adiciona o diretório 'problemas' ao sys.path para que possamos importar os scripts de problema
+# O path '..' significa um diretório acima do diretório atual (que seria o diretório raiz do projeto)
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), 'problemas')))
 
-caminho_do_arquivo = "arquivos/Flaviviridae-genomes.fasta"
+# Importa as funções de cada problema
+# Note que você importa o módulo (ex: problema_1) e depois chama a função (ex: problema_1.analisar_composicao)
+import problema_1
+import problema_2
+import problema_3
 
 def run_all_problems():
+    """
+    Executa todos os problemas do projeto em sequência.
+    """
     print("===========================================")
     print("   Iniciando Projeto Final - BioPython    ")
     print("===========================================\n")
 
+    # Define o caminho do arquivo FASTA principal uma vez
     fasta_file_path = os.path.join(os.path.dirname(__file__), 'arquivos', 'Flaviviridae-genomes.fasta')
     
     # --- Executa o Problema 1 ---
